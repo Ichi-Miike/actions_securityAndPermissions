@@ -8,9 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign label
+        env:
+          TITLE: ${{ github.action.issue.title }}
         run: |
-          issue_title="${{ github.event.issue.title }}"
-          if [[ "$issue_title" == *"bug"* ]]; then
+          # The below line would allow script injection
+          # issue_title="${{ github.event.issue.title }}"
+          
+          if [[ "$TITLE" == *"bug"* ]]; then
           echo "Issue is about a bug!"
           else
           echo "Issue is not about a bug"
